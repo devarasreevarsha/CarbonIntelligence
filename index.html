@@ -1,2333 +1,2564 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CarbonSense | Carbon Intelligence Platform</title>
+<title>CarbonSense</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 
-/* =========================
-   GLOBAL
-========================= */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, Helvetica, sans-serif;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-body{
-    background:#f5f8f6;
-    color:#17251d;
+body {
+    background: #071A17;
+    color: #F4FFF8;
 }
 
-button,
+/* HEADER */
+
+header {
+    background: #102A24;
+    color: #F4FFF8;
+    padding: 18px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #23483D;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #39D98A;
+}
+
+header div:last-child {
+    color: #A7B8AE;
+}
+
+/* LAYOUT */
+
+.container {
+    display: flex;
+    min-height: calc(100vh - 70px);
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 240px;
+    background: #0B211C;
+    padding: 20px 12px;
+    border-right: 1px solid #23483D;
+}
+
+.sidebar button {
+    width: 100%;
+    padding: 13px;
+    margin: 4px 0;
+    border: none;
+    background: transparent;
+    color: #A7B8AE;
+    text-align: left;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+    background: #16382E;
+    color: #39D98A;
+    font-weight: bold;
+}
+
+/* MAIN */
+
+.main {
+    flex: 1;
+    padding: 30px;
+    max-width: 1400px;
+}
+
+.title {
+    font-size: 38px;
+    font-weight: bold;
+    color: #F4FFF8;
+}
+
+.subtitle {
+    color: #A7B8AE;
+    margin-top: 5px;
+    font-size: 17px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* CARDS */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin: 25px 0;
+}
+
+.card {
+    background: #102A24;
+    color: #F4FFF8;
+    padding: 22px;
+    border-radius: 18px;
+    text-align: center;
+    border: 1px solid #23483D;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.20);
+}
+
+.card h3 {
+    font-size: 15px;
+    font-weight: normal;
+    color: #A7B8AE;
+}
+
+.card .value {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 8px 0;
+    color: #39D98A;
+}
+
+/* BOX */
+
+.box {
+    background: #102A24;
+    padding: 22px;
+    border-radius: 16px;
+    margin-top: 20px;
+    border: 1px solid #23483D;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.18);
+}
+
+.box h1,
+.box h2,
+.box h3 {
+    color: #F4FFF8;
+}
+
+.grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* FORM */
+
 input,
-select{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-
-    background:#07152f;
-    color:white;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:15px 30px;
-
-    box-shadow:0 3px 15px rgba(0,0,0,.15);
-}
-
-.logo{
-    font-size:24px;
-    font-weight:bold;
-}
-
-.logo span{
-    color:#52d273;
-}
-
-nav{
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
-}
-
-nav button{
-    background:transparent;
-    color:white;
-    border:none;
-    padding:10px 14px;
-    border-radius:8px;
-}
-
-nav button:hover,
-nav button.active{
-    background:#52d273;
-    color:#07152f;
-}
-
-
-/* =========================
-   MAIN
-========================= */
-
-main{
-    max-width:1250px;
-    margin:auto;
-    padding:30px 20px 100px;
-}
-
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-}
-
-
-/* =========================
-   HERO
-========================= */
-
-.hero{
-    background:linear-gradient(135deg,#07152f,#123b35);
-    color:white;
-
-    padding:50px 40px;
-    border-radius:22px;
-    margin-bottom:25px;
-}
-
-.hero h1{
-    font-size:42px;
-    margin-bottom:15px;
-}
-
-.hero p{
-    max-width:800px;
-    line-height:1.7;
-    color:#dce9df;
-}
-
-
-/* =========================
-   CARDS
-========================= */
-
-.card{
-    background:white;
-    border-radius:18px;
-    padding:25px;
-    margin-bottom:22px;
-
-    box-shadow:0 5px 22px rgba(0,0,0,.06);
-}
-
-.card h2{
-    margin-bottom:12px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:18px;
-}
-
-
-/* =========================
-   FORM
-========================= */
-
-.form-group{
-    margin-bottom:15px;
-}
-
-label{
-    display:block;
-    font-weight:bold;
-    margin-bottom:7px;
-}
-
-input,
-select{
-    width:100%;
-    padding:13px;
-
-    border:1px solid #ccd8d0;
-    border-radius:9px;
-
-    background:white;
-    outline:none;
+select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #315A4E;
+    border-radius: 8px;
+    background: #071A17;
+    color: #F4FFF8;
 }
 
 input:focus,
-select:focus{
-    border-color:#52d273;
+select:focus {
+    outline: none;
+    border-color: #39D98A;
+    box-shadow: 0 0 8px rgba(57,217,138,0.25);
 }
 
-
-/* =========================
-   BUTTONS
-========================= */
-
-.btn{
-    border:none;
-    padding:12px 18px;
-    border-radius:9px;
-    font-weight:bold;
-    margin:5px 3px;
+label {
+    font-weight: bold;
+    color: #CFE8DB;
 }
 
-.primary{
-    background:#52d273;
-    color:#07152f;
+.calculate {
+    background: #39D98A;
+    color: #071A17;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
 }
 
-.dark{
-    background:#07152f;
-    color:white;
+.calculate:hover {
+    background: #8BE28B;
+    transform: translateY(-1px);
 }
 
-.red{
-    background:#e45757;
-    color:white;
+/* RESULT */
+
+.result {
+    margin-top: 20px;
+    padding: 18px;
+    background: #16382E;
+    border: 1px solid #2A5D4D;
+    border-radius: 12px;
+    color: #F4FFF8;
 }
 
-.gray{
-    background:#e8ece9;
-    color:#17251d;
+.result p {
+    margin: 7px 0;
+    color: #CFE8DB;
 }
 
-.btn:hover{
-    transform:translateY(-1px);
-    opacity:.9;
+.action {
+    background: #16382E;
+    border: 1px solid #2A5D4D;
+    color: #CFE8DB;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 15px;
 }
 
-
-/* =========================
-   METRICS
-========================= */
-
-.metric-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:18px;
+canvas {
+    max-height: 350px;
 }
 
-.metric{
-    background:#07152f;
-    color:white;
-    padding:22px;
-    border-radius:15px;
+/* TABLE */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
 }
 
-.metric-title{
-    color:#b9c4bf;
-    font-size:14px;
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #315A4E;
+    text-align: center;
 }
 
-.metric-value{
-    color:#52d273;
-    font-size:28px;
-    font-weight:bold;
-    margin-top:8px;
+th {
+    background: #071A17;
+    color: #39D98A;
 }
 
-
-/* =========================
-   APPLIANCES
-========================= */
-
-.appliance-list{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
+td {
+    color: #CFE8DB;
 }
 
-.appliance-card{
-    background:#f5f8f6;
-    border:1px solid #dce5df;
-    padding:18px;
-    border-radius:14px;
+/* APPLIANCE TASK */
+
+.appliance-task {
+    background: #0B211C;
+    border: 1px solid #315A4E;
+    border-radius: 12px;
+    padding: 18px;
+    margin-top: 15px;
 }
 
-.appliance-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:15px;
+.appliance-task h3 {
+    color: #39D98A;
+    margin-bottom: 10px;
 }
 
-.appliance-number{
-    font-weight:bold;
-    color:#365245;
+.remove-btn {
+    background: #5B2A2A;
+    color: #FFD7D7;
+    border: 1px solid #874444;
+    padding: 9px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-top: 5px;
 }
 
-.appliance-fields{
-    display:grid;
-    grid-template-columns:1.4fr 1fr 1fr 1fr;
-    gap:12px;
+.remove-btn:hover {
+    background: #713434;
 }
 
-.remove-appliance{
-    background:#e45757;
-    color:white;
-    border:none;
-    padding:9px 12px;
-    border-radius:7px;
+.add-btn {
+    background: #8BE28B;
+    color: #071A17;
+    padding: 11px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 8px;
 }
 
-.appliance-summary{
-    background:#eaf7ed;
-    padding:18px;
-    border-radius:12px;
-    margin-top:20px;
+/* ASK AI */
 
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
+.ai-message {
+    background: #16382E;
+    border: 1px solid #315A4E;
+    padding: 15px;
+    border-radius: 12px;
+    margin-top: 15px;
+    line-height: 1.6;
 }
 
-.summary-box{
-    background:white;
-    padding:15px;
-    border-radius:10px;
+.quick-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 15px 0;
 }
 
-.summary-box strong{
-    display:block;
-    font-size:23px;
-    color:#173d27;
-    margin-top:5px;
+.quick-buttons button {
+    background: #16382E;
+    border: 1px solid #39D98A;
+    color: #8BE28B;
+    padding: 9px 13px;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
-
-/* =========================
-   WHAT IF
-========================= */
-
-.whatif-result{
-    margin-top:20px;
-    padding:22px;
-
-    background:#eaf7ed;
-    border-radius:14px;
+.quick-buttons button:hover {
+    background: #214D3F;
 }
 
-.whatif-result h3{
-    margin-bottom:12px;
+.upload-preview {
+    max-width: 250px;
+    max-height: 200px;
+    margin-top: 15px;
+    border-radius: 10px;
+    border: 1px solid #39D98A;
+    display: none;
 }
 
-.reduction{
-    color:#16833a;
-    font-size:25px;
-    font-weight:bold;
+/* FOOTER */
+
+footer {
+    margin-top: 40px;
+    padding: 20px;
+    text-align: center;
+    color: #718B80;
 }
 
+/* MOBILE */
 
-/* =========================
-   ASK ANYTHING
-========================= */
+@media(max-width: 900px) {
 
-.chat-container{
-    max-width:900px;
-    margin:auto;
-}
-
-.chat-input-area{
-    display:flex;
-    gap:10px;
-}
-
-.chat-input-area input{
-    flex:1;
-}
-
-.chat-response{
-    margin-top:20px;
-    background:#f5f8f6;
-
-    border-left:5px solid #52d273;
-
-    padding:20px;
-    border-radius:12px;
-
-    line-height:1.7;
-
-    min-height:70px;
-}
-
-.user-question{
-    background:#07152f;
-    color:white;
-    padding:12px 15px;
-    border-radius:10px;
-    margin-bottom:15px;
-}
-
-
-/* =========================
-   CHART
-========================= */
-
-.chart-container{
-    position:relative;
-    width:100%;
-    height:350px;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-    background:#07152f;
-    color:white;
-    text-align:center;
-    padding:25px;
-}
-
-footer span{
-    color:#52d273;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:750px){
-
-    header{
-        flex-direction:column;
-        gap:15px;
+    .sidebar {
+        width: 190px;
     }
 
-    nav{
-        justify-content:center;
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .hero{
-        padding:35px 22px;
+    .grid2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 600px) {
+
+    .container {
+        display: block;
     }
 
-    .hero h1{
-        font-size:31px;
+    .sidebar {
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
     }
 
-    .appliance-fields{
-        grid-template-columns:1fr;
+    .sidebar button {
+        min-width: 150px;
     }
 
-    .appliance-summary{
-        grid-template-columns:1fr;
+    .main {
+        padding: 15px;
     }
 
-    .chat-input-area{
-        flex-direction:column;
+    .cards {
+        grid-template-columns: 1fr;
     }
 
+    header {
+        padding: 15px;
+    }
+
+    header div:last-child {
+        display: none;
+    }
 }
 
 </style>
 </head>
 
-
 <body>
-
-
-<!-- =========================
-     HEADER
-========================= -->
 
 <header>
 
-    <div class="logo">
-        🌱 Carbon<span>Sense</span>
-    </div>
+<div class="logo">
+🌱 Carbon<span>Sense</span>
+</div>
 
-    <nav>
-
-        <button class="active"
-                onclick="openPage('home',this)">
-            Home
-        </button>
-
-        <button onclick="openPage('calculator',this)">
-            Calculator
-        </button>
-
-        <button onclick="openPage('appliances',this)">
-            Appliances
-        </button>
-
-        <button onclick="openPage('whatif',this)">
-            What-If
-        </button>
-
-        <button onclick="openPage('ask',this)">
-            Ask Anything
-        </button>
-
-    </nav>
+<div>
+Carbon Intelligence Platform
+</div>
 
 </header>
 
 
-<main>
+<div class="container">
 
 
-<!-- =========================
-     HOME
-========================= -->
+<div class="sidebar">
 
-<section id="home" class="page active">
+<button class="active"
+onclick="showPage('dashboard',this)">
+🏠 Dashboard
+</button>
 
-    <div class="hero">
+<button onclick="showPage('electricity',this)">
+⚡ Electricity
+</button>
 
-        <h1>
-            Carbon Intelligence for a Sustainable Future 🌱
-        </h1>
+<button onclick="showPage('commute',this)">
+🚗 Commute
+</button>
 
-        <p>
-            CarbonSense is a sustainability platform that helps
-            students, faculty and institutions understand their
-            carbon footprint, analyse resource usage and explore
-            possible ways to reduce environmental impact.
-        </p>
+<button onclick="showPage('appliances',this)">
+🏠 Appliances
+</button>
 
-        <br>
+<button onclick="showPage('water',this)">
+💧 Water
+</button>
 
-        <button class="btn primary"
-                onclick="openPage('calculator')">
-            Start Calculation →
-        </button>
+<button onclick="showPage('waste',this)">
+🗑️ Waste
+</button>
 
-        <button class="btn gray"
-                onclick="refreshWebsite()">
-            ♻️ Refresh
-        </button>
+<button onclick="showPage('whatif',this)">
+🧪 What-If Simulator
+</button>
 
-    </div>
+<button onclick="showPage('prediction',this)">
+🔮 Carbon Prediction
+</button>
 
+<button onclick="showPage('action',this)">
+🌱 Action Plan
+</button>
 
-    <div class="metric-grid">
+<button onclick="showPage('route',this)">
+🗺️ Green Route
+</button>
 
-        <div class="metric">
+<button onclick="showPage('askai',this)">
+🤖 Ask Anything
+</button>
 
-            <div class="metric-title">
-                Electricity
-            </div>
-
-            <div class="metric-value"
-                 id="dashboardElectricity">
-                0 kg
-            </div>
-
-        </div>
-
-
-        <div class="metric">
-
-            <div class="metric-title">
-                Commute
-            </div>
-
-            <div class="metric-value"
-                 id="dashboardCommute">
-                0 kg
-            </div>
-
-        </div>
+</div>
 
 
-        <div class="metric">
-
-            <div class="metric-title">
-                Appliances
-            </div>
-
-            <div class="metric-value"
-                 id="dashboardAppliance">
-                0 kg
-            </div>
-
-        </div>
+<div class="main">
 
 
-        <div class="metric">
+<!-- DASHBOARD -->
 
-            <div class="metric-title">
-                Total Carbon
-            </div>
+<section id="dashboard" class="page active">
 
-            <div class="metric-value"
-                 id="dashboardTotal">
-                0 kg
-            </div>
+<div class="title">
+🌱 CarbonSense
+</div>
 
-        </div>
-
-    </div>
+<div class="subtitle">
+Carbon Intelligence for a Net-Zero Future
+</div>
 
 
-    <br>
+<div class="cards">
+
+<div class="card">
+
+<h3>Monthly CO₂</h3>
+
+<div class="value"
+id="monthlyCO2">
+0
+</div>
+
+<p>kg CO₂</p>
+
+</div>
 
 
-    <div class="card">
+<div class="card">
 
-        <h2>How CarbonSense Works</h2>
+<h3>Yearly CO₂</h3>
 
-        <br>
+<div class="value"
+id="yearlyCO2">
+0
+</div>
 
-        <div class="grid">
+<p>kg CO₂</p>
 
-            <div>
-                <h3>01 — Calculate</h3>
-                <p>
-                    Enter electricity, commute, water and waste
-                    information.
-                </p>
-            </div>
+</div>
 
-            <div>
-                <h3>02 — Analyse</h3>
-                <p>
-                    Understand which activities contribute to
-                    your estimated footprint.
-                </p>
-            </div>
 
-            <div>
-                <h3>03 — Simulate</h3>
-                <p>
-                    Use What-If scenarios to compare possible
-                    changes.
-                </p>
-            </div>
+<div class="card">
 
-            <div>
-                <h3>04 — Act</h3>
-                <p>
-                    Identify practical opportunities for reducing
-                    environmental impact.
-                </p>
-            </div>
+<h3>Tree Equivalent</h3>
 
-        </div>
+<div class="value"
+id="trees">
+0
+</div>
 
-    </div>
+<p>trees/year</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Target</h3>
+
+<div class="value">
+20%
+</div>
+
+<p>reduction goal</p>
+
+</div>
+
+</div>
+
+
+<div class="grid2">
+
+
+<div class="box">
+
+<h2>📊 Carbon Breakdown</h2>
+
+<canvas id="pieChart"></canvas>
+
+</div>
+
+
+<div class="box">
+
+<h2>📈 Carbon Sources</h2>
+
+<canvas id="barChart"></canvas>
+
+</div>
+
+</div>
+
+
+<div class="box">
+
+<h2>🌱 Quick Insights</h2>
+
+<div class="action"
+id="insight">
+
+Start entering your data to generate carbon insights.
+
+</div>
+
+</div>
 
 </section>
 
 
+<!-- ELECTRICITY -->
 
-<!-- =========================
-     CALCULATOR
-========================= -->
+<section id="electricity" class="page">
 
-<section id="calculator" class="page">
+<h1>⚡ Electricity Carbon Calculator</h1>
 
-    <div class="card">
+<div class="box">
 
-        <h2>🌍 Carbon Footprint Calculator</h2>
+<label>
+Electricity Bill (₹/month)
+</label>
 
-        <p>
-            Enter your estimated monthly usage.
-        </p>
+<input
+type="number"
+id="electricityBill"
+value="800"
+min="0">
 
-        <br>
 
-        <div class="grid">
+<label>
+Electricity cost (₹/kWh)
+</label>
 
-            <div class="form-group">
+<input
+type="number"
+id="tariff"
+value="8"
+min="0.01">
 
-                <label>
-                    Monthly Electricity Bill (₹)
-                </label>
 
-                <input
-                    type="number"
-                    id="electricityBill"
-                    min="0"
-                    placeholder="Example: 1500">
+<label>
+Renewable energy share (%)
+</label>
 
-            </div>
+<input
+type="number"
+id="renewable"
+value="0"
+min="0"
+max="100">
 
 
-            <div class="form-group">
+<button
+class="calculate"
+onclick="calculateElectricity()">
 
-                <label>
-                    Monthly Commute Distance (km)
-                </label>
+Calculate Electricity Impact
 
-                <input
-                    type="number"
-                    id="commuteDistance"
-                    min="0"
-                    placeholder="Example: 500">
+</button>
 
-            </div>
 
+<div id="electricityResult"></div>
 
-            <div class="form-group">
-
-                <label>
-                    Water Usage (litres/day)
-                </label>
-
-                <input
-                    type="number"
-                    id="waterUsage"
-                    min="0"
-                    placeholder="Example: 100">
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>
-                    Waste Generated (kg/month)
-                </label>
-
-                <input
-                    type="number"
-                    id="wasteUsage"
-                    min="0"
-                    placeholder="Example: 10">
-
-            </div>
-
-        </div>
-
-
-        <br>
-
-
-        <button class="btn primary"
-                onclick="calculateFootprint()">
-            Calculate
-        </button>
-
-
-        <button class="btn red"
-                onclick="resetCalculator()">
-            🔄 Reset
-        </button>
-
-
-        <button class="btn dark"
-                onclick="refreshWebsite()">
-            ♻️ Refresh
-        </button>
-
-    </div>
-
-
-    <div class="metric-grid">
-
-        <div class="metric">
-
-            <div class="metric-title">
-                Electricity
-            </div>
-
-            <div class="metric-value"
-                 id="electricityCarbon">
-                0 kg
-            </div>
-
-        </div>
-
-
-        <div class="metric">
-
-            <div class="metric-title">
-                Commute
-            </div>
-
-            <div class="metric-value"
-                 id="commuteCarbon">
-                0 kg
-            </div>
-
-        </div>
-
-
-        <div class="metric">
-
-            <div class="metric-title">
-                Water
-            </div>
-
-            <div class="metric-value"
-                 id="waterCarbon">
-                0 kg
-            </div>
-
-        </div>
-
-
-        <div class="metric">
-
-            <div class="metric-title">
-                Waste
-            </div>
-
-            <div class="metric-value"
-                 id="wasteCarbon">
-                0 kg
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <br>
-
-
-    <div class="card">
-
-        <h2>Total Estimated Footprint</h2>
-
-        <br>
-
-        <div class="whatif-result">
-
-            <div class="reduction"
-                 id="totalCarbon">
-                0 kg CO₂e/month
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="card">
-
-        <h2>Carbon Distribution</h2>
-
-        <div class="chart-container">
-
-            <canvas id="carbonChart"></canvas>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
+<!-- COMMUTE -->
 
-<!-- =========================
-     APPLIANCES
-========================= -->
+<section id="commute" class="page">
+
+<h1>🚗 Daily Commute Impact</h1>
+
+<div class="box">
+
+<label>
+Transport Mode
+</label>
+
+<select id="transport">
+
+<option value="0.08">
+Bike (Petrol)
+</option>
+
+<option value="0.19">
+Car (Petrol)
+</option>
+
+<option value="0.05">
+Bus
+</option>
+
+<option value="0.03">
+Train
+</option>
+
+<option value="0.04">
+EV
+</option>
+
+<option value="0">
+Bicycle
+</option>
+
+<option value="0">
+Walking
+</option>
+
+</select>
+
+
+<label>
+One-way distance (km)
+</label>
+
+<input
+type="number"
+id="distance"
+value="10">
+
+
+<label>
+Days per week
+</label>
+
+<input
+type="number"
+id="days"
+value="5">
+
+
+<label>
+People sharing vehicle
+</label>
+
+<input
+type="number"
+id="passengers"
+value="1">
+
+
+<button
+class="calculate"
+onclick="calculateCommute()">
+
+Calculate Commute Impact
+
+</button>
+
+
+<div id="commuteResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- APPLIANCES -->
 
 <section id="appliances" class="page">
 
-    <div class="card">
+<h1>
+🏠 Appliance Carbon Calculator
+</h1>
 
-        <h2>🔌 Appliance Usage</h2>
+<div class="box">
 
-        <p>
-            Select different appliances and add multiple appliances
-            to calculate their monthly electricity consumption.
-        </p>
+<p style="color:#A7B8AE;">
+Add multiple appliances and calculate their combined monthly carbon emissions.
+</p>
 
-        <br>
+<div id="applianceTasks"></div>
 
+<br>
 
-        <div id="applianceList"
-             class="appliance-list">
-        </div>
+<button class="add-btn"
+onclick="addApplianceTask()">
+＋ Add Appliance
+</button>
 
+<button class="calculate"
+onclick="calculateAllAppliances()">
+Calculate All Appliances
+</button>
 
-        <br>
+<button class="remove-btn"
+onclick="clearAppliances()">
+Clear All
+</button>
 
+<div id="applianceResult"></div>
 
-        <button class="btn primary"
-                onclick="addAppliance()">
-            ➕ Add Appliance
-        </button>
-
-
-        <button class="btn dark"
-                onclick="calculateAppliances()">
-            Calculate Appliances
-        </button>
-
-
-        <button class="btn red"
-                onclick="resetAppliances()">
-            🔄 Reset
-        </button>
-
-
-        <button class="btn gray"
-                onclick="refreshWebsite()">
-            ♻️ Refresh
-        </button>
-
-
-        <div class="appliance-summary">
-
-            <div class="summary-box">
-
-                Monthly Electricity
-
-                <strong id="applianceKwh">
-                    0 kWh
-                </strong>
-
-            </div>
-
-
-            <div class="summary-box">
-
-                Estimated Carbon
-
-                <strong id="applianceCO2">
-                    0 kg CO₂e
-                </strong>
-
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
+<!-- WATER -->
 
-<!-- =========================
-     WHAT IF
-========================= -->
+<section id="water" class="page">
+
+<h1>
+💧 Water Carbon
+</h1>
+
+<div class="box">
+
+<label>
+Water consumption (litres/day)
+</label>
+
+<input
+type="number"
+id="waterLitres"
+value="100">
+
+
+<label>
+Number of people
+</label>
+
+<input
+type="number"
+id="people"
+value="1">
+
+
+<button
+class="calculate"
+onclick="calculateWater()">
+
+Calculate Water Impact
+
+</button>
+
+
+<div id="waterResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- WASTE -->
+
+<section id="waste" class="page">
+
+<h1>
+🗑️ Waste Carbon
+</h1>
+
+<div class="box">
+
+<label>
+Food waste (kg/month)
+</label>
+
+<input
+type="number"
+id="foodWaste"
+value="2">
+
+
+<label>
+Plastic waste (kg/month)
+</label>
+
+<input
+type="number"
+id="plasticWaste"
+value="1">
+
+
+<label>
+Paper waste (kg/month)
+</label>
+
+<input
+type="number"
+id="paperWaste"
+value="1">
+
+
+<button
+class="calculate"
+onclick="calculateWaste()">
+
+Calculate Waste Impact
+
+</button>
+
+
+<div id="wasteResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- WHAT IF -->
 
 <section id="whatif" class="page">
 
-    <div class="card">
+<h1>
+🧪 What-If Carbon Simulator
+</h1>
 
-        <h2>🔮 What-If Simulator</h2>
+<div class="box">
 
-        <p>
-            Compare your current usage with a possible future
-            usage and estimate the difference.
-        </p>
+<p style="color:#A7B8AE;">
+Change your electricity, commute and appliance usage to see the estimated
+carbon impact of a different scenario.
+</p>
 
-        <br>
+<br>
 
+<label>
+Current electricity (kWh/month)
+</label>
 
-        <div class="grid">
-
-            <div class="form-group">
-
-                <label>
-                    Current Electricity Bill (₹)
-                </label>
-
-                <input
-                    type="number"
-                    id="currentElectricity"
-                    value="2000">
-
-            </div>
+<input
+type="number"
+id="currentEnergy"
+value="200">
 
 
-            <div class="form-group">
+<label>
+New electricity (kWh/month)
+</label>
 
-                <label>
-                    Future Electricity Bill (₹)
-                </label>
-
-                <input
-                    type="number"
-                    id="futureElectricity"
-                    value="1500">
-
-            </div>
+<input
+type="number"
+id="newEnergy"
+value="160">
 
 
-            <div class="form-group">
+<label>
+Current commute days/week
+</label>
 
-                <label>
-                    Current Commute (km/month)
-                </label>
-
-                <input
-                    type="number"
-                    id="currentCommute"
-                    value="500">
-
-            </div>
+<input
+type="number"
+id="currentDays"
+value="5">
 
 
-            <div class="form-group">
+<label>
+New commute days/week
+</label>
 
-                <label>
-                    Future Commute (km/month)
-                </label>
-
-                <input
-                    type="number"
-                    id="futureCommute"
-                    value="350">
-
-            </div>
-
-        </div>
+<input
+type="number"
+id="newDays"
+value="3">
 
 
-        <br>
+<label>
+Current appliance CO₂ (kg/month)
+</label>
+
+<input
+type="number"
+id="currentApplianceCO2"
+value="0">
 
 
-        <button class="btn primary"
-                onclick="runWhatIf()">
-            Run Simulation
-        </button>
+<label>
+New appliance CO₂ (kg/month)
+</label>
+
+<input
+type="number"
+id="newApplianceCO2"
+value="0">
 
 
-        <button class="btn red"
-                onclick="resetWhatIf()">
-            🔄 Reset
-        </button>
+<button
+class="calculate"
+onclick="simulate()">
+
+🚀 Run Simulation
+
+</button>
 
 
-        <button class="btn dark"
-                onclick="refreshWebsite()">
-            ♻️ Refresh
-        </button>
+<div id="simulationResult"></div>
 
-
-        <div class="whatif-result">
-
-            <h3>
-                Simulation Result
-            </h3>
-
-            <br>
-
-            <div id="whatIfOutput">
-                Enter your values and run the simulation.
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
+<!-- PREDICTION -->
 
-<!-- =========================
-     ASK ANYTHING
-========================= -->
+<section id="prediction" class="page">
 
-<section id="ask" class="page">
+<h1>
+🔮 Carbon Prediction
+</h1>
 
-    <div class="card chat-container">
+<div class="box">
 
-        <h2>🤖 Ask Anything</h2>
+<p style="color:#A7B8AE;">
+Prototype forecast based on previous monthly consumption.
+</p>
 
-        <p>
-            Ask questions about CarbonSense, carbon footprint,
-            appliances, electricity, sustainability, water,
-            waste or the What-If simulator.
-        </p>
-
-        <br>
+<canvas id="predictionChart"></canvas>
 
 
-        <div class="chat-input-area">
+<div class="result">
 
-            <input
-                type="text"
-                id="questionInput"
-                placeholder="Type your question here..."
-                autocomplete="off">
+<h3>
+Predicted Next Month
+</h3>
 
-            <button class="btn primary"
-                    onclick="submitQuestion()">
-                Submit
-            </button>
+<p id="predictionValue">
+0 kg CO₂
+</p>
 
-        </div>
+</div>
 
-
-        <button class="btn red"
-                onclick="clearQuestion()">
-            Clear
-        </button>
-
-
-        <div id="chatResponse"
-             class="chat-response">
-
-            👋 Ask me anything about CarbonSense.
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
-</main>
+<!-- ACTION PLAN -->
+
+<section id="action" class="page">
+
+<h1>
+🌱 Personalized Carbon Action Plan
+</h1>
+
+<div class="box">
+
+<h2>
+Your Current Footprint
+</h2>
+
+<div class="result">
+
+<span id="actionTotal">
+0
+</span>
+
+kg CO₂/month
+
+</div>
 
 
+<h2 style="margin-top:20px;">
+🎯 Recommended Action
+</h2>
 
-<!-- =========================
-     FOOTER
-========================= -->
+<div
+class="action"
+id="recommendedAction">
+
+Enter data in the calculators to receive a personalized action.
+
+</div>
+
+
+<h2 style="margin-top:20px;">
+🎯 20% Reduction Target
+</h2>
+
+<div class="result">
+
+Target:
+
+<span id="targetValue">
+0
+</span>
+
+kg CO₂/month
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- GREEN ROUTE -->
+
+<section id="route" class="page">
+
+<h1>
+🗺️ Campus Green Route
+</h1>
+
+<div class="box">
+
+<label>
+Starting Location
+</label>
+
+<select id="start">
+
+<option>
+ECE Block
+</option>
+
+<option>
+Library
+</option>
+
+<option>
+Canteen
+</option>
+
+<option>
+Hostel
+</option>
+
+<option>
+Main Gate
+</option>
+
+</select>
+
+
+<label>
+Destination
+</label>
+
+<select id="destination">
+
+<option>
+Library
+</option>
+
+<option>
+ECE Block
+</option>
+
+<option>
+Canteen
+</option>
+
+<option>
+Hostel
+</option>
+
+<option>
+Main Gate
+</option>
+
+</select>
+
+
+<button
+class="calculate"
+onclick="greenRoute()">
+
+Find Green Options
+
+</button>
+
+
+<div id="routeResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- ASK ANYTHING -->
+
+<section id="askai" class="page">
+
+<h1>
+🤖 Ask Anything
+</h1>
+
+<div class="box">
+
+<p style="color:#A7B8AE;">
+Ask CarbonSense about carbon emissions, sustainability, electricity,
+commuting, appliances, water, waste or your dashboard.
+</p>
+
+<div class="quick-buttons">
+
+<button onclick="quickAsk('What is carbon footprint?')">
+What is carbon footprint?
+</button>
+
+<button onclick="quickAsk('How can I reduce electricity emissions?')">
+Reduce electricity
+</button>
+
+<button onclick="quickAsk('Which transport mode produces less carbon?')">
+Green transport
+</button>
+
+<button onclick="quickAsk('How does the What-If simulator work?')">
+What-If?
+</button>
+
+</div>
+
+
+<label>
+Ask your question
+</label>
+
+<input
+type="text"
+id="aiQuestion"
+placeholder="Ask anything about carbon..." />
+
+
+<button
+class="calculate"
+onclick="askAnything()">
+💬 Ask
+</button>
+
+<button
+class="add-btn"
+onclick="startVoice()">
+🎤 Voice
+</button>
+
+
+<br><br>
+
+<label>
+Upload a photo
+</label>
+
+<input
+type="file"
+id="aiPhoto"
+accept="image/*"
+onchange="previewPhoto(event)">
+
+
+<img
+id="photoPreview"
+class="upload-preview"
+alt="Uploaded preview">
+
+
+<div id="aiResponse"></div>
+
+</div>
+
+</section>
+
 
 <footer>
 
-    <p>
-        🌱 <span>CarbonSense</span>
-        | Carbon Intelligence Platform
-    </p>
-
-    <br>
-
-    <p>
-        Towards a smarter and more sustainable future.
-    </p>
+🌱 CarbonSense | Hackathon Prototype |
+Emission factors are illustrative unless sourced.
 
 </footer>
 
 
+</div>
+</div>
+
 
 <script>
 
-/* =========================================
-   PAGE NAVIGATION
-========================================= */
-
-function openPage(pageId, button){
-
-    document.querySelectorAll(".page").forEach(function(page){
-
-        page.classList.remove("active");
-
-    });
-
-
-    const selectedPage =
-        document.getElementById(pageId);
-
-    if(selectedPage){
-
-        selectedPage.classList.add("active");
-
-    }
-
-
-    document.querySelectorAll("nav button")
-    .forEach(function(btn){
-
-        btn.classList.remove("active");
-
-    });
-
-
-    if(button){
-
-        button.classList.add("active");
-
-    }
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
-
-}
-
-
-/* =========================================
-   REFRESH
-========================================= */
-
-function refreshWebsite(){
-
-    location.reload();
-
-}
-
-
-/* =========================================
-   CARBON CALCULATION
-========================================= */
-
-function calculateFootprint(){
-
-    const electricity =
-        Number(
-            document.getElementById(
-                "electricityBill"
-            ).value
-        ) || 0;
-
-
-    const commute =
-        Number(
-            document.getElementById(
-                "commuteDistance"
-            ).value
-        ) || 0;
-
-
-    const water =
-        Number(
-            document.getElementById(
-                "waterUsage"
-            ).value
-        ) || 0;
-
-
-    const waste =
-        Number(
-            document.getElementById(
-                "wasteUsage"
-            ).value
-        ) || 0;
-
-
-    /*
-       Demo factors for the prototype.
-       Replace with verified factors/API data
-       for final deployment.
-    */
-
-    const electricityCO2 =
-        electricity * 0.0007;
-
-
-    const commuteCO2 =
-        commute * 0.12;
-
-
-    const waterCO2 =
-        water * 30 * 0.0003;
-
-
-    const wasteCO2 =
-        waste * 0.5;
-
-
-    const total =
-        electricityCO2 +
-        commuteCO2 +
-        waterCO2 +
-        wasteCO2;
-
-
-    document.getElementById(
-        "electricityCarbon"
-    ).innerText =
-        electricityCO2.toFixed(2) + " kg";
-
-
-    document.getElementById(
-        "commuteCarbon"
-    ).innerText =
-        commuteCO2.toFixed(2) + " kg";
-
-
-    document.getElementById(
-        "waterCarbon"
-    ).innerText =
-        waterCO2.toFixed(2) + " kg";
-
-
-    document.getElementById(
-        "wasteCarbon"
-    ).innerText =
-        wasteCO2.toFixed(2) + " kg";
-
-
-    document.getElementById(
-        "totalCarbon"
-    ).innerText =
-        total.toFixed(2) +
-        " kg CO₂e/month";
-
-
-    document.getElementById(
-        "dashboardElectricity"
-    ).innerText =
-        electricityCO2.toFixed(2) + " kg";
-
-
-    document.getElementById(
-        "dashboardCommute"
-    ).innerText =
-        commuteCO2.toFixed(2) + " kg";
-
-
-    document.getElementById(
-        "dashboardTotal"
-    ).innerText =
-        total.toFixed(2) + " kg";
-
-
-    localStorage.setItem(
-        "carbonSenseData",
-        JSON.stringify({
-
-            electricity:electricity,
-
-            commute:commute,
-
-            water:water,
-
-            waste:waste
-
-        })
-    );
-
-
-    updateChart(
-        electricityCO2,
-        commuteCO2,
-        waterCO2,
-        wasteCO2
-    );
-
-}
-
-
-/* =========================================
-   RESET CALCULATOR
-========================================= */
-
-function resetCalculator(){
-
-    document.getElementById(
-        "electricityBill"
-    ).value = "";
-
-
-    document.getElementById(
-        "commuteDistance"
-    ).value = "";
-
-
-    document.getElementById(
-        "waterUsage"
-    ).value = "";
-
-
-    document.getElementById(
-        "wasteUsage"
-    ).value = "";
-
-
-    document.getElementById(
-        "electricityCarbon"
-    ).innerText = "0 kg";
-
-
-    document.getElementById(
-        "commuteCarbon"
-    ).innerText = "0 kg";
-
-
-    document.getElementById(
-        "waterCarbon"
-    ).innerText = "0 kg";
-
-
-    document.getElementById(
-        "wasteCarbon"
-    ).innerText = "0 kg";
-
-
-    document.getElementById(
-        "totalCarbon"
-    ).innerText =
-        "0 kg CO₂e/month";
-
-
-    document.getElementById(
-        "dashboardElectricity"
-    ).innerText = "0 kg";
-
-
-    document.getElementById(
-        "dashboardCommute"
-    ).innerText = "0 kg";
-
-
-    document.getElementById(
-        "dashboardTotal"
-    ).innerText = "0 kg";
-
-
-    localStorage.removeItem(
-        "carbonSenseData"
-    );
-
-
-    if(carbonChart){
-
-        carbonChart.destroy();
-
-        carbonChart = null;
-
-    }
-
-}
-
-
-/* =========================================
-   APPLIANCES
-========================================= */
-
-let applianceNumber = 0;
-
-
-const applianceDefaults = {
-
-    "Fan":75,
-
-    "Air Conditioner":1500,
-
-    "Television":100,
-
-    "Refrigerator":200,
-
-    "Washing Machine":500,
-
-    "Laptop":65,
-
-    "Desktop Computer":200,
-
-    "LED Light":12,
-
-    "Tube Light":40,
-
-    "Microwave":1200,
-
-    "Iron":1000,
-
-    "Water Heater":2000,
-
-    "Other":100
+/* =========================================================
+   CARBON DATA
+========================================================= */
+
+let carbon = {
+
+    electricity: 0,
+    commute: 0,
+    appliances: 0,
+    water: 0,
+    waste: 0
 
 };
 
-
-function addAppliance(){
-
-    applianceNumber++;
+const ELECTRICITY_FACTOR = 0.7;
 
 
-    const container =
-        document.getElementById(
-            "applianceList"
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+function showPage(page, button) {
+
+    document
+    .querySelectorAll(".page")
+    .forEach(p => p.classList.remove("active"));
+
+    document
+    .getElementById(page)
+    .classList.add("active");
+
+    document
+    .querySelectorAll(".sidebar button")
+    .forEach(b => b.classList.remove("active"));
+
+    button.classList.add("active");
+
+}
+
+
+/* =========================================================
+   TOTAL CARBON
+========================================================= */
+
+function totalCarbon() {
+
+    return Object.values(carbon)
+    .reduce((a,b) => a + b, 0);
+
+}
+
+
+/* =========================================================
+   UPDATE DASHBOARD
+========================================================= */
+
+function updateDashboard() {
+
+    let total = totalCarbon();
+
+    document.getElementById("monthlyCO2")
+    .innerText = total.toFixed(1);
+
+    document.getElementById("yearlyCO2")
+    .innerText = (total * 12).toFixed(1);
+
+    document.getElementById("trees")
+    .innerText = ((total * 12) / 21).toFixed(1);
+
+    document.getElementById("actionTotal")
+    .innerText = total.toFixed(1);
+
+    document.getElementById("targetValue")
+    .innerText = (total * 0.8).toFixed(1);
+
+
+    if(total > 0) {
+
+        let largest =
+        Object.keys(carbon)
+        .reduce((a,b) =>
+        carbon[a] > carbon[b] ? a : b
         );
 
 
-    const card =
-        document.createElement("div");
+        document.getElementById("insight")
+        .innerHTML =
+        "🎯 Your largest estimated carbon source is <b>"
+        + largest
+        + "</b>. Focus on this category first.";
 
 
-    card.className =
-        "appliance-card";
+        document.getElementById("recommendedAction")
+        .innerHTML =
+        getAction(largest);
+
+    }
 
 
-    card.id =
-        "appliance-" +
-        applianceNumber;
+    updateCharts();
+
+}
 
 
-    card.innerHTML = `
+/* =========================================================
+   ACTION PLAN
+========================================================= */
 
-        <div class="appliance-header">
+function getAction(category) {
 
-            <div class="appliance-number">
-                Appliance ${applianceNumber}
-            </div>
+    let actions = {
 
-            <button
-                class="remove-appliance"
-                onclick="removeAppliance(${applianceNumber})">
+        electricity:
+        "⚡ Reduce unnecessary electricity use and switch off devices when not required.",
 
-                🗑️ Remove
+        commute:
+        "🚲 Try walking, cycling, public transport or ride-sharing.",
 
-            </button>
+        appliances:
+        "🏠 Reduce the operating hours of high-power appliances.",
 
-        </div>
+        water:
+        "💧 Reduce unnecessary water consumption and check for leakage.",
 
+        waste:
+        "♻️ Reduce waste at source and improve recycling."
 
-        <div class="appliance-fields">
+    };
 
-            <div>
+    return actions[category];
 
-                <label>
-                    Appliance
-                </label>
-
-                <select
-                    class="appliance-name"
-                    onchange="autoPower(this)">
-
-                    <option value="">
-                        Select appliance
-                    </option>
-
-                    <option value="Fan">
-                        🌀 Fan
-                    </option>
-
-                    <option value="Air Conditioner">
-                        ❄️ Air Conditioner
-                    </option>
-
-                    <option value="Television">
-                        📺 Television
-                    </option>
-
-                    <option value="Refrigerator">
-                        🧊 Refrigerator
-                    </option>
-
-                    <option value="Washing Machine">
-                        🧺 Washing Machine
-                    </option>
-
-                    <option value="Laptop">
-                        💻 Laptop
-                    </option>
-
-                    <option value="Desktop Computer">
-                        🖥️ Desktop Computer
-                    </option>
-
-                    <option value="LED Light">
-                        💡 LED Light
-                    </option>
-
-                    <option value="Tube Light">
-                        🔆 Tube Light
-                    </option>
-
-                    <option value="Microwave">
-                        🍲 Microwave
-                    </option>
-
-                    <option value="Iron">
-                        ♨️ Iron
-                    </option>
-
-                    <option value="Water Heater">
-                        🚿 Water Heater
-                    </option>
-
-                    <option value="Other">
-                        🔌 Other
-                    </option>
-
-                </select>
-
-            </div>
+}
 
 
-            <div>
+/* =========================================================
+   ELECTRICITY
+   ONLY CHANGED SECTION
+========================================================= */
 
-                <label>
-                    Power (W)
-                </label>
+function calculateElectricity() {
 
-                <input
-                    type="number"
-                    class="appliance-power"
-                    min="0"
-                    placeholder="Watts">
+    let bill =
+    parseFloat(
+        document.getElementById("electricityBill").value
+    ) || 0;
 
-            </div>
+    let renewable =
+    parseFloat(
+        document.getElementById("renewable").value
+    ) || 0;
 
-
-            <div>
-
-                <label>
-                    Hours / Day
-                </label>
-
-                <input
-                    type="number"
-                    class="appliance-hours"
-                    min="0"
-                    step="0.1"
-                    placeholder="Hours">
-
-            </div>
+    let tariff =
+    parseFloat(
+        document.getElementById("tariff").value
+    ) || 0;
 
 
-            <div>
+    /*
+       Convert electricity bill to estimated
+       electricity consumption.
 
-                <label>
-                    Days / Month
-                </label>
+       Bill (₹) ÷ Tariff (₹/kWh)
+       = Estimated electricity usage (kWh)
+    */
 
-                <input
-                    type="number"
-                    class="appliance-days"
-                    min="1"
-                    max="31"
-                    value="30">
+    let units = 0;
 
-            </div>
+    if(tariff > 0) {
 
-        </div>
+        units = bill / tariff;
 
+    }
+
+
+    /*
+       Remove renewable-energy portion
+       from grid electricity.
+    */
+
+    let gridUnits =
+    units * (1 - renewable / 100);
+
+
+    /*
+       Estimated CO₂
+       = Grid electricity × emission factor
+    */
+
+    let result =
+    gridUnits * ELECTRICITY_FACTOR;
+
+
+    carbon.electricity = result;
+
+
+    document.getElementById("electricityResult")
+    .innerHTML =
+
+    `<div class="result">
+
+    <h3>💰 Electricity Bill</h3>
+
+    <p>₹${bill.toFixed(0)} / month</p>
+
+    <h3>⚡ Estimated Electricity Usage</h3>
+
+    <p>${units.toFixed(1)} kWh/month</p>
+
+    <h3>🌱 Estimated Monthly CO₂</h3>
+
+    <p>${result.toFixed(1)} kg CO₂</p>
+
+    <h3>📅 Estimated Annual CO₂</h3>
+
+    <p>${(result * 12).toFixed(1)} kg CO₂</p>
+
+    </div>`;
+
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   COMMUTE
+========================================================= */
+
+function calculateCommute() {
+
+    let factor =
+    parseFloat(
+        document.getElementById("transport").value
+    );
+
+    let distance =
+    parseFloat(
+        document.getElementById("distance").value
+    );
+
+    let days =
+    parseFloat(
+        document.getElementById("days").value
+    );
+
+    let passengers =
+    parseFloat(
+        document.getElementById("passengers").value
+    );
+
+
+    let trips =
+    days * 4.33 * 2;
+
+
+    let result =
+    distance * trips * factor / passengers;
+
+
+    carbon.commute = result;
+
+
+    document.getElementById("commuteResult")
+    .innerHTML =
+
+    `<div class="result">
+
+    <h3>Monthly CO₂</h3>
+
+    <p>${result.toFixed(1)} kg</p>
+
+    <h3>Yearly CO₂</h3>
+
+    <p>${(result * 12).toFixed(1)} kg</p>
+
+    </div>`;
+
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   APPLIANCES
+========================================================= */
+
+let applianceCount = 0;
+
+
+function addApplianceTask() {
+
+    applianceCount++;
+
+    let container =
+    document.getElementById("applianceTasks");
+
+    let task =
+    document.createElement("div");
+
+    task.className = "appliance-task";
+
+    task.id = "applianceTask" + applianceCount;
+
+    task.innerHTML = `
+
+        <h3>🔌 Appliance ${applianceCount}</h3>
+
+        <label>Appliance / Task Name</label>
+
+        <input
+        type="text"
+        class="app-name"
+        placeholder="Example: Fan, AC, Laptop">
+
+
+        <label>Power (Watts)</label>
+
+        <input
+        type="number"
+        class="app-power"
+        value="75"
+        min="0">
+
+
+        <label>Hours used per day</label>
+
+        <input
+        type="number"
+        class="app-hours"
+        value="4"
+        min="0">
+
+
+        <label>Days used per month</label>
+
+        <input
+        type="number"
+        class="app-days"
+        value="25"
+        min="0">
+
+
+        <button
+        class="remove-btn"
+        onclick="this.parentElement.remove()">
+
+        🗑 Remove
+
+        </button>
     `;
 
-
-    container.appendChild(card);
-
-}
-
-
-function autoPower(select){
-
-    const card =
-        select.closest(
-            ".appliance-card"
-        );
-
-
-    const power =
-        card.querySelector(
-            ".appliance-power"
-        );
-
-
-    const selected =
-        select.value;
-
-
-    if(
-        applianceDefaults[selected]
-    ){
-
-        power.value =
-            applianceDefaults[selected];
-
-    }
+    container.appendChild(task);
 
 }
 
 
-function removeAppliance(id){
+function calculateAllAppliances() {
 
-    const element =
-        document.getElementById(
-            "appliance-" + id
-        );
+    let tasks =
+    document.querySelectorAll(".appliance-task");
 
+    let totalEnergy = 0;
 
-    if(element){
+    let totalCO2 = 0;
 
-        element.remove();
-
-    }
+    let rows = "";
 
 
-    calculateAppliances();
+    tasks.forEach((task, index) => {
 
-}
+        let name =
+        task.querySelector(".app-name").value
+        || "Appliance " + (index + 1);
 
+        let power =
+        parseFloat(
+            task.querySelector(".app-power").value
+        ) || 0;
 
-function calculateAppliances(){
+        let hours =
+        parseFloat(
+            task.querySelector(".app-hours").value
+        ) || 0;
 
-    const cards =
-        document.querySelectorAll(
-            ".appliance-card"
-        );
-
-
-    let totalKwh = 0;
-
-
-    cards.forEach(function(card){
-
-        const power =
-            Number(
-                card.querySelector(
-                    ".appliance-power"
-                ).value
-            ) || 0;
+        let days =
+        parseFloat(
+            task.querySelector(".app-days").value
+        ) || 0;
 
 
-        const hours =
-            Number(
-                card.querySelector(
-                    ".appliance-hours"
-                ).value
-            ) || 0;
+        let energy =
+        (power * hours * days) / 1000;
 
 
-        const days =
-            Number(
-                card.querySelector(
-                    ".appliance-days"
-                ).value
-            ) || 0;
+        let co2 =
+        energy * ELECTRICITY_FACTOR;
 
 
-        const monthlyKwh =
-            (
-                power *
-                hours *
-                days
-            ) / 1000;
+        totalEnergy += energy;
+
+        totalCO2 += co2;
 
 
-        totalKwh +=
-            monthlyKwh;
+        rows += `
+
+        <tr>
+
+        <td>${name}</td>
+
+        <td>${energy.toFixed(2)}</td>
+
+        <td>${co2.toFixed(2)}</td>
+
+        </tr>
+
+        `;
 
     });
 
 
-    const carbon =
-        totalKwh * 0.7;
+    carbon.appliances = totalCO2;
 
 
-    document.getElementById(
-        "applianceKwh"
-    ).innerText =
-        totalKwh.toFixed(2) +
-        " kWh";
+    document.getElementById("applianceResult")
+    .innerHTML =
+
+    `<div class="result">
+
+        <h3>📊 Appliance Summary</h3>
+
+        <table>
+
+        <tr>
+
+        <th>Appliance</th>
+
+        <th>Energy (kWh)</th>
+
+        <th>CO₂ (kg)</th>
+
+        </tr>
+
+        ${rows}
+
+        </table>
+
+        <br>
+
+        <h3>Total Energy</h3>
+
+        <p>${totalEnergy.toFixed(2)} kWh/month</p>
+
+        <h3>Total Appliance CO₂</h3>
+
+        <p>${totalCO2.toFixed(2)} kg CO₂/month</p>
+
+    </div>`;
 
 
-    document.getElementById(
-        "applianceCO2"
-    ).innerText =
-        carbon.toFixed(2) +
-        " kg CO₂e";
+    updateDashboard();
+
+}
 
 
-    document.getElementById(
-        "dashboardAppliance"
-    ).innerText =
-        carbon.toFixed(2) +
-        " kg";
+function clearAppliances() {
+
+    document.getElementById("applianceTasks")
+    .innerHTML = "";
+
+    applianceCount = 0;
+
+    carbon.appliances = 0;
+
+    document.getElementById("applianceResult")
+    .innerHTML = "";
+
+    updateDashboard();
+
+}
 
 
-    localStorage.setItem(
-        "applianceCarbon",
-        carbon
+/* =========================================================
+   WATER
+========================================================= */
+
+function calculateWater() {
+
+    let litres =
+    parseFloat(
+        document.getElementById("waterLitres").value
     );
 
-}
-
-
-function resetAppliances(){
-
-    document.getElementById(
-        "applianceList"
-    ).innerHTML = "";
-
-
-    applianceNumber = 0;
-
-
-    document.getElementById(
-        "applianceKwh"
-    ).innerText =
-        "0 kWh";
-
-
-    document.getElementById(
-        "applianceCO2"
-    ).innerText =
-        "0 kg CO₂e";
-
-
-    document.getElementById(
-        "dashboardAppliance"
-    ).innerText =
-        "0 kg";
-
-
-    addAppliance();
-
-}
-
-
-/* =========================================
-   WHAT IF SIMULATOR
-========================================= */
-
-function runWhatIf(){
-
-    const currentElectricity =
-        Number(
-            document.getElementById(
-                "currentElectricity"
-            ).value
-        ) || 0;
-
-
-    const futureElectricity =
-        Number(
-            document.getElementById(
-                "futureElectricity"
-            ).value
-        ) || 0;
-
-
-    const currentCommute =
-        Number(
-            document.getElementById(
-                "currentCommute"
-            ).value
-        ) || 0;
-
-
-    const futureCommute =
-        Number(
-            document.getElementById(
-                "futureCommute"
-            ).value
-        ) || 0;
-
-
-    const currentCarbon =
-        (
-            currentElectricity * 0.0007
-        ) +
-        (
-            currentCommute * 0.12
-        );
-
-
-    const futureCarbon =
-        (
-            futureElectricity * 0.0007
-        ) +
-        (
-            futureCommute * 0.12
-        );
-
-
-    const difference =
-        currentCarbon -
-        futureCarbon;
-
-
-    let percentage = 0;
-
-
-    if(currentCarbon > 0){
-
-        percentage =
-            (
-                difference /
-                currentCarbon
-            ) * 100;
-
-    }
-
-
-    let message = "";
-
-
-    if(difference > 0){
-
-        message = `
-
-            <p>
-                Current estimated footprint:
-                <strong>
-                    ${currentCarbon.toFixed(2)}
-                    kg CO₂e/month
-                </strong>
-            </p>
-
-            <br>
-
-            <p>
-                Future estimated footprint:
-                <strong>
-                    ${futureCarbon.toFixed(2)}
-                    kg CO₂e/month
-                </strong>
-            </p>
-
-            <br>
-
-            <p>
-                Potential reduction:
-                <strong>
-                    ${difference.toFixed(2)}
-                    kg CO₂e/month
-                </strong>
-            </p>
-
-            <br>
-
-            <p class="reduction">
-                ${percentage.toFixed(1)}%
-                estimated reduction
-            </p>
-
-        `;
-
-    }
-
-    else if(difference < 0){
-
-        message = `
-
-            <p>
-                Current estimated footprint:
-                <strong>
-                    ${currentCarbon.toFixed(2)}
-                    kg CO₂e/month
-                </strong>
-            </p>
-
-            <br>
-
-            <p>
-                Future estimated footprint:
-                <strong>
-                    ${futureCarbon.toFixed(2)}
-                    kg CO₂e/month
-                </strong>
-            </p>
-
-            <br>
-
-            <p>
-                Estimated increase:
-                <strong>
-                    ${Math.abs(difference).toFixed(2)}
-                    kg CO₂e/month
-                </strong>
-            </p>
-
-        `;
-
-    }
-
-    else{
-
-        message = `
-            <strong>
-                The current and future scenarios have
-                the same estimated footprint.
-            </strong>
-        `;
-
-    }
-
-
-    document.getElementById(
-        "whatIfOutput"
-    ).innerHTML =
-        message;
-
-}
-
-
-function resetWhatIf(){
-
-    document.getElementById(
-        "currentElectricity"
-    ).value = 2000;
-
-
-    document.getElementById(
-        "futureElectricity"
-    ).value = 1500;
-
-
-    document.getElementById(
-        "currentCommute"
-    ).value = 500;
-
-
-    document.getElementById(
-        "futureCommute"
-    ).value = 350;
-
-
-    document.getElementById(
-        "whatIfOutput"
-    ).innerHTML =
-        "Enter your values and run the simulation.";
-
-}
-
-
-/* =========================================
-   ASK ANYTHING
-========================================= */
-
-const questionInput =
-    document.getElementById(
-        "questionInput"
+    let people =
+    parseFloat(
+        document.getElementById("people").value
     );
 
 
-questionInput.addEventListener(
-    "keydown",
-    function(event){
+    let monthly =
+    litres * people * 30;
 
-        if(event.key === "Enter"){
 
-            event.preventDefault();
+    let result =
+    monthly * 0.0003;
 
-            submitQuestion();
 
-        }
+    carbon.water = result;
+
+
+    document.getElementById("waterResult")
+    .innerHTML =
+
+    `<div class="result">
+
+    <h3>Monthly Water Carbon</h3>
+
+    <p>${result.toFixed(2)} kg CO₂</p>
+
+    <h3>Water Usage</h3>
+
+    <p>${monthly.toFixed(0)} litres/month</p>
+
+    </div>`;
+
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   WASTE
+========================================================= */
+
+function calculateWaste() {
+
+    let food =
+    parseFloat(
+        document.getElementById("foodWaste").value
+    );
+
+    let plastic =
+    parseFloat(
+        document.getElementById("plasticWaste").value
+    );
+
+    let paper =
+    parseFloat(
+        document.getElementById("paperWaste").value
+    );
+
+
+    let result =
+    food * 0.5 +
+    plastic * 2.5 +
+    paper * 1;
+
+
+    carbon.waste = result;
+
+
+    document.getElementById("wasteResult")
+    .innerHTML =
+
+    `<div class="result">
+
+    <h3>Estimated Waste Carbon</h3>
+
+    <p>${result.toFixed(1)} kg CO₂/month</p>
+
+    </div>`;
+
+
+    updateDashboard();
+
+}
+
+
+/* =========================================================
+   WHAT-IF SIMULATOR
+========================================================= */
+
+function simulate() {
+
+    let currentEnergy =
+    parseFloat(
+        document.getElementById("currentEnergy").value
+    ) || 0;
+
+    let newEnergy =
+    parseFloat(
+        document.getElementById("newEnergy").value
+    ) || 0;
+
+    let currentDays =
+    parseFloat(
+        document.getElementById("currentDays").value
+    ) || 0;
+
+    let newDays =
+    parseFloat(
+        document.getElementById("newDays").value
+    ) || 0;
+
+    let currentAppliance =
+    parseFloat(
+        document.getElementById("currentApplianceCO2").value
+    ) || 0;
+
+    let newAppliance =
+    parseFloat(
+        document.getElementById("newApplianceCO2").value
+    ) || 0;
+
+
+    let currentElectricityCO2 =
+    currentEnergy * ELECTRICITY_FACTOR;
+
+    let newElectricityCO2 =
+    newEnergy * ELECTRICITY_FACTOR;
+
+
+    let currentCommuteCO2 =
+    carbon.commute;
+
+
+    let newCommuteCO2 = 0;
+
+    if(currentDays > 0) {
+
+        newCommuteCO2 =
+        currentCommuteCO2 *
+        (newDays / currentDays);
 
     }
-);
 
 
-function submitQuestion(){
-
-    const input =
-        document.getElementById(
-            "questionInput"
-        );
+    let currentTotal =
+    currentElectricityCO2 +
+    currentCommuteCO2 +
+    currentAppliance;
 
 
-    const response =
-        document.getElementById(
-            "chatResponse"
-        );
+    let newTotal =
+    newElectricityCO2 +
+    newCommuteCO2 +
+    newAppliance;
 
 
-    const question =
-        input.value.trim();
+    let difference =
+    currentTotal - newTotal;
 
 
-    if(question === ""){
+    let percentage =
+    currentTotal > 0
+    ? (difference / currentTotal) * 100
+    : 0;
 
-        response.innerHTML =
-            "⚠️ Please type a question before submitting.";
 
-        input.focus();
+    let statusMessage;
 
-        return;
+
+    if(difference > 0) {
+
+        statusMessage =
+
+        `🌱 Your What-If scenario could save
+        <b>${difference.toFixed(2)} kg CO₂/month</b>.
+        <br><br>
+        Estimated reduction:
+        <b>${percentage.toFixed(1)}%</b>.`;
+
+    }
+
+    else if(difference < 0) {
+
+        statusMessage =
+
+        `⚠️ This scenario could increase emissions by
+        <b>${Math.abs(difference).toFixed(2)} kg CO₂/month</b>.
+        <br><br>
+        Estimated increase:
+        <b>${Math.abs(percentage).toFixed(1)}%</b>.`;
+
+    }
+
+    else {
+
+        statusMessage =
+        `➖ The What-If scenario produces the same
+        estimated CO₂ as the current scenario.`;
 
     }
 
 
-    const q =
-        question.toLowerCase();
+    document.getElementById("simulationResult")
+    .innerHTML =
+
+    `<div class="result">
+
+        <h3>📊 Current Scenario</h3>
+
+        <p>Electricity:
+        ${currentElectricityCO2.toFixed(2)} kg CO₂</p>
+
+        <p>Commute:
+        ${currentCommuteCO2.toFixed(2)} kg CO₂</p>
+
+        <p>Appliances:
+        ${currentAppliance.toFixed(2)} kg CO₂</p>
+
+        <hr style="margin:15px 0;border-color:#315A4E">
+
+        <h3>
+        Current Total:
+        ${currentTotal.toFixed(2)} kg CO₂/month
+        </h3>
 
 
-    let answer;
+        <br>
 
 
-    if(
-        q.includes("what is carbon") ||
-        q.includes("carbon footprint")
-    ){
+        <h3>🔮 What-If Scenario</h3>
 
-        answer =
-        "🌱 A carbon footprint represents the estimated greenhouse-gas emissions associated with an activity, person, product or organisation. CarbonSense helps users understand their estimated footprint from different activities.";
+        <p>Electricity:
+        ${newElectricityCO2.toFixed(2)} kg CO₂</p>
 
-    }
+        <p>Commute:
+        ${newCommuteCO2.toFixed(2)} kg CO₂</p>
 
-    else if(
-        q.includes("electricity")
-    ){
+        <p>Appliances:
+        ${newAppliance.toFixed(2)} kg CO₂</p>
 
-        answer =
-        "⚡ Electricity usage can contribute to carbon emissions depending on how electricity is generated. In CarbonSense, you can enter your monthly electricity bill to estimate its associated footprint.";
+        <hr style="margin:15px 0;border-color:#315A4E">
 
-    }
-
-    else if(
-        q.includes("appliance")
-    ){
-
-        answer =
-        "🔌 Go to the Appliances section. Select an appliance such as Fan, AC, TV, Refrigerator, Laptop or Light. Then enter power, hours per day and days per month. You can click Add Appliance to include multiple appliances.";
-
-    }
-
-    else if(
-        q.includes("what if") ||
-        q.includes("simulation")
-    ){
-
-        answer =
-        "🔮 The What-If Simulator compares a current scenario with a future scenario. For example, you can compare your present electricity bill and commute with lower future values and see the estimated change in carbon emissions.";
-
-    }
-
-    else if(
-        q.includes("water")
-    ){
-
-        answer =
-        "💧 Water usage can have an environmental impact because water needs pumping, treatment and distribution. Reducing unnecessary water consumption can support sustainability.";
-
-    }
-
-    else if(
-        q.includes("waste")
-    ){
-
-        answer =
-        "♻️ Waste reduction, reuse and recycling can reduce environmental impact. CarbonSense includes waste as one of the categories used in the footprint estimate.";
-
-    }
-
-    else if(
-        q.includes("sustainability")
-    ){
-
-        answer =
-        "🌍 Sustainability means using resources responsibly while considering environmental, social and future needs.";
-
-    }
-
-    else if(
-        q.includes("hello") ||
-        q.includes("hi")
-    ){
-
-        answer =
-        "👋 Hello! I am the CarbonSense assistant. You can ask me about carbon footprint, electricity, appliances, water, waste or the What-If Simulator.";
-
-    }
-
-    else{
-
-        answer =
-        "🤖 I can currently help with CarbonSense topics such as carbon footprint, electricity, commute, appliances, water, waste, sustainability and What-If simulations.";
-
-    }
+        <h3>
+        What-If Total:
+        ${newTotal.toFixed(2)} kg CO₂/month
+        </h3>
 
 
-    response.innerHTML = `
+        <br>
 
-        <div class="user-question">
-            You: ${escapeHTML(question)}
+
+        <div class="action">
+
+        ${statusMessage}
+
         </div>
 
-        <div>
-            ${answer}
-        </div>
-
-    `;
+    </div>`;
 
 }
 
 
-function clearQuestion(){
+/* =========================================================
+   CHARTS
+========================================================= */
 
-    document.getElementById(
-        "questionInput"
-    ).value = "";
-
-
-    document.getElementById(
-        "chatResponse"
-    ).innerHTML =
-        "👋 Ask me anything about CarbonSense.";
+let pieChart;
+let barChart;
 
 
-    document.getElementById(
-        "questionInput"
-    ).focus();
+function updateCharts() {
 
-}
+    let values = [
 
+        carbon.electricity,
+        carbon.commute,
+        carbon.appliances,
+        carbon.water,
+        carbon.waste
 
-/* =========================================
-   SECURITY
-========================================= */
-
-function escapeHTML(text){
-
-    const div =
-        document.createElement("div");
-
-    div.textContent = text;
-
-    return div.innerHTML;
-
-}
+    ];
 
 
-/* =========================================
-   CHART
-========================================= */
+    let labels = [
 
-let carbonChart = null;
+        "Electricity",
+        "Commute",
+        "Appliances",
+        "Water",
+        "Waste"
 
-
-function updateChart(
-    electricity,
-    commute,
-    water,
-    waste
-){
-
-    const canvas =
-        document.getElementById(
-            "carbonChart"
-        );
+    ];
 
 
-    if(!canvas){
-        return;
-    }
+    if(pieChart)
+        pieChart.destroy();
 
 
-    if(carbonChart){
-
-        carbonChart.destroy();
-
-    }
+    if(barChart)
+        barChart.destroy();
 
 
-    carbonChart =
-        new Chart(canvas, {
+    pieChart =
+    new Chart(
+        document.getElementById("pieChart"),
+        {
 
-            type:"doughnut",
+            type: "doughnut",
 
-            data:{
+            data: {
 
-                labels:[
-                    "Electricity",
-                    "Commute",
-                    "Water",
-                    "Waste"
-                ],
+                labels: labels,
 
-                datasets:[{
+                datasets: [{
 
-                    data:[
-                        electricity,
-                        commute,
-                        water,
-                        waste
-                    ]
+                    data: values
 
                 }]
 
             },
 
-            options:{
+            options: {
 
-                responsive:true,
+                responsive: true
 
-                maintainAspectRatio:false,
+            }
 
-                plugins:{
+        }
+    );
 
-                    legend:{
-                        position:"bottom"
+
+    barChart =
+    new Chart(
+        document.getElementById("barChart"),
+        {
+
+            type: "bar",
+
+            data: {
+
+                labels: labels,
+
+                datasets: [{
+
+                    label: "kg CO₂",
+
+                    data: values
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true
+
                     }
 
                 }
 
             }
 
-        });
+        }
+    );
 
 }
 
 
-/* =========================================
-   INITIAL APPLIANCE
-========================================= */
+/* =========================================================
+   PREDICTION
+========================================================= */
 
-addAppliance();
-
-
-/* =========================================
-   LOAD SAVED DATA
-========================================= */
-
-window.addEventListener(
-    "load",
-    function(){
-
-        const saved =
-            localStorage.getItem(
-                "carbonSenseData"
-            );
+let predictionChart;
 
 
-        if(saved){
+function createPrediction() {
 
-            const data =
-                JSON.parse(saved);
-
-
-            document.getElementById(
-                "electricityBill"
-            ).value =
-                data.electricity || "";
+    let base =
+    Math.max(totalCarbon(),100);
 
 
-            document.getElementById(
-                "commuteDistance"
-            ).value =
-                data.commute || "";
+    let values = [
+
+        base * .78,
+        base * .84,
+        base * .91,
+        base * .96,
+        base * 1.02,
+        base
+
+    ];
 
 
-            document.getElementById(
-                "waterUsage"
-            ).value =
-                data.water || "";
+    if(predictionChart)
+        predictionChart.destroy();
 
 
-            document.getElementById(
-                "wasteUsage"
-            ).value =
-                data.waste || "";
+    predictionChart =
+    new Chart(
 
+        document.getElementById("predictionChart"),
 
-            calculateFootprint();
+        {
+
+            type: "line",
+
+            data: {
+
+                labels: [
+                    "Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "May",
+                    "Jun"
+                ],
+
+                datasets: [{
+
+                    label: "CO₂",
+
+                    data: values,
+
+                    fill: false,
+
+                    tension: .3
+
+                }]
+
+            }
 
         }
 
+    );
+
+
+    document.getElementById("predictionValue")
+    .innerText =
+    (base * 1.05).toFixed(1)
+    + " kg CO₂";
+
+}
+
+
+/* =========================================================
+   GREEN ROUTE
+========================================================= */
+
+function greenRoute() {
+
+    document.getElementById("routeResult")
+    .innerHTML =
+
+    `
+
+    <div class="result">
+
+    <table>
+
+    <tr>
+
+    <th>Mode</th>
+    <th>Distance</th>
+    <th>Time</th>
+    <th>CO₂</th>
+
+    </tr>
+
+
+    <tr>
+
+    <td>🚶 Walking</td>
+    <td>1.2 km</td>
+    <td>15 min</td>
+    <td>0 kg</td>
+
+    </tr>
+
+
+    <tr>
+
+    <td>🚲 Bicycle</td>
+    <td>1.2 km</td>
+    <td>5 min</td>
+    <td>0 kg</td>
+
+    </tr>
+
+
+    <tr>
+
+    <td>🚌 Campus Bus</td>
+    <td>1.5 km</td>
+    <td>8 min</td>
+    <td>0.075 kg</td>
+
+    </tr>
+
+
+    <tr>
+
+    <td>🏍️ Petrol Bike</td>
+    <td>1.2 km</td>
+    <td>4 min</td>
+    <td>0.096 kg</td>
+
+    </tr>
+
+
+    </table>
+
+
+    <br>
+
+    🌱 Compare travel time and estimated emissions before choosing your route.
+
+    </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ASK ANYTHING
+========================================================= */
+
+function quickAsk(question) {
+
+    document.getElementById("aiQuestion")
+    .value = question;
+
+    askAnything();
+
+}
+
+
+function askAnything() {
+
+    let question =
+    document.getElementById("aiQuestion")
+    .value
+    .trim();
+
+
+    if(!question) {
+
+        document.getElementById("aiResponse")
+        .innerHTML =
+
+        `<div class="ai-message">
+        Please type a question first.
+        </div>`;
+
+        return;
+
     }
-);
+
+
+    let answer =
+    getCarbonAnswer(question);
+
+
+    document.getElementById("aiResponse")
+    .innerHTML =
+
+    `<div class="ai-message">
+
+    <b>🌱 CarbonSense:</b>
+
+    <br><br>
+
+    ${answer}
+
+    </div>`;
+
+
+    speakAnswer(answer);
+
+}
+
+
+function getCarbonAnswer(question) {
+
+    let q =
+    question.toLowerCase();
+
+
+    if(q.includes("carbon footprint")) {
+
+        return `
+        A carbon footprint is the estimated amount of greenhouse gases
+        produced by activities such as electricity use, transportation,
+        appliances, water use and waste.
+        `;
+
+    }
+
+
+    if(q.includes("electricity")) {
+
+        return `
+        Electricity emissions are estimated using electricity consumption
+        in kWh multiplied by the selected emission factor.
+        You can reduce emissions by switching off unused devices,
+        improving efficiency and using renewable energy.
+        `;
+
+    }
+
+
+    if(q.includes("commute") ||
+       q.includes("transport")) {
+
+        return `
+        Transport emissions depend on distance, travel frequency,
+        transport mode and vehicle sharing.
+        Walking, cycling, public transport and shared travel can reduce
+        estimated emissions.
+        `;
+
+    }
+
+
+    if(q.includes("appliance")) {
+
+        return `
+        Appliance carbon is calculated from power, hours of operation
+        and number of usage days.
+        The basic calculation is:
+        Power × Hours × Days ÷ 1000 = kWh.
+        Then kWh is multiplied by the electricity emission factor.
+        `;
+
+    }
+
+
+    if(q.includes("water")) {
+
+        return `
+        Water carbon represents the estimated emissions associated with
+        water consumption. Reducing unnecessary water use and fixing
+        leaks can help reduce resource consumption.
+        `;
+
+    }
+
+
+    if(q.includes("waste")) {
+
+        return `
+        Waste emissions depend on the type and quantity of waste.
+        Reducing waste at source, reusing materials and recycling can
+        help lower estimated emissions.
+        `;
+
+    }
+
+
+    if(q.includes("what-if") ||
+       q.includes("what if")) {
+
+        return `
+        The What-If Simulator compares a current scenario with a new
+        scenario. You can change electricity, commute days and appliance
+        emissions and see the estimated CO₂ difference.
+        `;
+
+    }
+
+
+    if(q.includes("reduce") ||
+       q.includes("lower")) {
+
+        return `
+        Start with the category having the highest value on your
+        CarbonSense Dashboard. Then reduce unnecessary electricity use,
+        optimize appliance usage and choose lower-emission travel options.
+        `;
+
+    }
+
+
+    return `
+    I can help with electricity, commute, appliances, water, waste,
+    carbon footprint, What-If simulation, prediction and sustainability.
+    Try asking a specific question such as:
+    "How can I reduce my electricity emissions?"
+    `;
+
+}
+
+
+/* =========================================================
+   VOICE INPUT
+========================================================= */
+
+function startVoice() {
+
+    if(!("webkitSpeechRecognition" in window) &&
+       !("SpeechRecognition" in window)) {
+
+        alert("Voice recognition is not supported in this browser.");
+
+        return;
+
+    }
+
+
+    const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+
+    let recognition =
+    new SpeechRecognition();
+
+
+    recognition.lang = "en-IN";
+
+    recognition.start();
+
+
+    recognition.onresult = function(event) {
+
+        let text =
+        event.results[0][0].transcript;
+
+        document.getElementById("aiQuestion")
+        .value = text;
+
+        askAnything();
+
+    };
+
+}
+
+
+/* =========================================================
+   PHOTO PREVIEW
+========================================================= */
+
+function previewPhoto(event) {
+
+    let file =
+    event.target.files[0];
+
+    if(!file)
+        return;
+
+
+    let preview =
+    document.getElementById("photoPreview");
+
+
+    preview.src =
+    URL.createObjectURL(file);
+
+
+    preview.style.display = "block";
+
+
+    document.getElementById("aiResponse")
+    .innerHTML =
+
+    `<div class="ai-message">
+
+    📷 Photo uploaded successfully.
+
+    <br><br>
+
+    The standalone HTML version can display the photo.
+    For actual AI image analysis, connect this interface to
+    an AI backend/API.
+
+    </div>`;
+
+}
+
+
+/* =========================================================
+   TEXT TO SPEECH
+========================================================= */
+
+function speakAnswer(text) {
+
+    if("speechSynthesis" in window) {
+
+        let speech =
+        new SpeechSynthesisUtterance(text);
+
+        speech.lang = "en-IN";
+
+        window.speechSynthesis.speak(speech);
+
+    }
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+addApplianceTask();
+
+updateDashboard();
+
+createPrediction();
 
 </script>
 
 </body>
 </html>
-```
